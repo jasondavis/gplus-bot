@@ -10,9 +10,8 @@
 /**
  * REQUIRED PARAMETERS
  */
-$status = 'testzzz';
-$email = 'your@email.com';
-$pass = 'yourpassw0rd';
+$self = array_shift( $argv );
+$status = implode( ' ', $argv );
 
 /**
  * OPTIONAL PARAMETERS
@@ -21,10 +20,10 @@ $pass = 'yourpassw0rd';
  */
 $pageid = false;
 $cookies = 'cookie.txt';
-$sleeptime = 0;
+$sleeptime = 1;
 $uagent = 'Mozilla/4.0 (compatible; MSIE 5.0; S60/3.0 NokiaN73-1/2.0(2.0617.0.0.7) Profile/MIDP-2.0 Configuration/CLDC-1.1)';
 $pc_uagent = 'Mozilla/5.0 (X11; Linux x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1';
-$debug = FALSE;
+$debug = true;
 
 function tidy($str) {
     return rtrim($str, "&");
@@ -71,19 +70,22 @@ function login_data() {
     curl_close($ch);
 
     echo "\n[+] Sending GET request to: https://plus.google.com/\n\n";
+    echo "\n[+] username is " . $_ENV['GPLUS_EMAIL'] . "/\n\n";
 
     $toreturn = '';
 
     $doc = new DOMDocument;
+    // echo $buf;
+    // die;
     $doc->loadxml($buf);
     $inputs = $doc->getElementsByTagName('input');
     foreach ($inputs as $input) {
 	switch ($input->getAttribute('name')) {
 	    case 'Email':
-		$toreturn .= 'Email=' . urlencode($GLOBALS['email']) . '&';
+		$toreturn .= 'Email=' . urlencode($_ENV['GPLUS_EMAIL']) . '&';
 		break;
 	    case 'Passwd':
-		$toreturn .= 'Passwd=' . urlencode($GLOBALS['pass']) . '&';
+		$toreturn .= 'Passwd=' . urlencode($_ENV['GPLUS_PASSWORD']) . '&';
 		break;
 	    default:
 		$toreturn .= $input->getAttribute('name') . '=' . urlencode($input->getAttribute('value')) . '&';
