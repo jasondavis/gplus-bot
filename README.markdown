@@ -10,13 +10,12 @@ This bot can log into your Google account and update your Google Plus status,
 but you can extend it to other Google products. All this is done without Google API,
 OAuth, tokens or any other annoying products.
 
-
 ## System requirements
 * PHP curl extension
 
 ## Instructions
-1. Open gplus.php and edit email and password
-2. run it ```php gplus.php```
+1. Copy config.sh.example to config.sh, open config.sh and edit email and password
+2. run it ```source config.sh && php gplus.php```
 
 ## Changelog
 
@@ -37,6 +36,7 @@ OAuth, tokens or any other annoying products.
 ## TODO
 * add an option to change post visility
 * add posting to pages
+* add page links
 
 ## License
  ----------------------------------------------------------------------------
